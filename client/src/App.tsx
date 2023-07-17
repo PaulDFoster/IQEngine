@@ -110,6 +110,11 @@ export const App = () => {
                   </Link>
                 </li>
                 <li>
+                  <Link to="/track" onClick={() => {}}>
+                    Track
+                  </Link>
+                </li>
+                <li>
                   <Link to="/about" onClick={() => {}}>
                     About
                   </Link>
@@ -163,6 +168,11 @@ export const App = () => {
           </Link>
           <div className="absolute right-0 py-2 mr-2 ">
             <ul className="flex-row flex mb-4 mt-0 space-x-5 text-sm font-medium">
+              <li className="hidden md:block">
+                <Link to="/track" onClick={() => {}}>
+                  <div className="text-lg">Track</div>
+                </Link>
+              </li>
               <li className="hidden md:block">
                 <Link to="/about" onClick={() => {}}>
                   <div className="text-lg">About</div>

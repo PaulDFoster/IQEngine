@@ -14,6 +14,13 @@ export function useRouter() {
       },
       children: [
         {
+          path: 'track',
+          async lazy() {
+            let { default: MapComponent } = await import('@/pages/MapComponent');
+            return { Component: MapComponent };
+          },
+        },
+        {
           path: 'about',
           async lazy() {
             let { About } = await import('@/pages/About');
