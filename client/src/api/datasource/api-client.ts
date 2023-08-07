@@ -18,7 +18,7 @@ export class ApiClient implements DataSourceClient {
       account: this.account,
       scopes: ['openid', 'profile'],
     });
-    return response.accessToken;
+    return response.idToken;
   }
 
   private async requestWithAuth(config) {

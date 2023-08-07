@@ -422,7 +422,7 @@
                     "isAutoProvisioned": true,
                     "registration": {
                       "clientId": "[parameters('adAppClientId')]",
-                      "openIdIssuer": "[format('https://sts.windows.net/{0}/v2.0', subscription().tenantId)]"
+                      "openIdIssuer": "[format('https://login.microsoftonline.com/{0}/v2.0', subscription().tenantId)]"
                     },
                     "validation": {
                       "allowedAudiences": ["[format('api://{0}', parameters('adAppClientId'))]"]
