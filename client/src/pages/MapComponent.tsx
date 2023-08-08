@@ -24,8 +24,8 @@ const MapComponent: React.FC = () => {
         params: {
           account: 'rfdx4rp5',
           container: 'kleos-data',
-          min_datetime: '2023-01-01T02:20:00Z',
-          max_datetime: '2023-03-01T02:21:00Z',
+          min_datetime: '2023-04-11T02:20:00Z',
+          max_datetime: '2023-04-13T02:21:00Z',
         },
       })
       .then((response) => {
