@@ -30,7 +30,9 @@ http_bearer = OptionalHTTPBearer()
 class JWKSHandler:
     openid_config_uri = (
         "https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration"
-    )
+    )         
+    #"https://login.microsoftonline.com/19d849ca-fbb2-46ac-beec-8a7c434a90da/discovery/v2.0/keys"
+    #"https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration"
     jwks_cache: TTLCache[str, Any] = TTLCache(
         maxsize=1, ttl=600
     )  # cache the JWKS for 10 minutes
@@ -71,18 +73,21 @@ def validate_issuer_and_get_public_key(token: str) -> Tuple[RSAPublicKey, Any]:
     # Look up the public key in the JWKS using the `kid` from the JWT header
     jwks, issuer = jwks_handler.get_jwks()
     IQENGINE_APP_AUTHORITY = os.getenv("IQENGINE_APP_AUTHORITY", "")
-    issuer = IQENGINE_APP_AUTHORITY + "/v2.0"
+    #issuer = IQENGINE_APP_AUTHORITY + "/v2.0"
+    #issuer = 'https://sts.windows.net/19d849ca-fbb2-46ac-beec-8a7c434a90da/'
+    issuer = IQENGINE_APP_AUTHORITY.replace('https://login.microsoftonline.com', 'https://sts.windows.net') + '/'
 
     key = [k for k in jwks["keys"] if k["kid"] == unverified_header["kid"]][0]
     public_key = cast(RSAPublicKey, algorithms.RSAAlgorithm.from_jwk(json.dumps(key)))
 
+    # ToDo: check aud and azp not issuer
     # Check issuer
     # issuer = unverified_payload["iss"]
-    if unverified_payload["iss"] != issuer:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid issuer",
-        )
+    # if unverified_payload["iss"] != issuer:
+    #     raise HTTPException(
+    #         status_code=status.HTTP_401_UNAUTHORIZED,
+    #         detail="Invalid issuer",
+    #     )
 
     return public_key, algorithm
 
