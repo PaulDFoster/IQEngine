@@ -14,10 +14,10 @@ export class ApiClient implements DataSourceClient {
   }
 
   private async getAccessToken() {
-    const api_scope = 'api:/' + import.meta.env.IQENGINE_APP_ID + '/.default';
+    const api_scope = 'api://' + import.meta.env.IQENGINE_APP_ID + '/api';
     const response = await this.instance.acquireTokenSilent({
       account: this.account,
-      scopes: [api_scope, 'profile', 'openid'],
+      scopes: [api_scope],
     });
     return response.accessToken; //accessToken or idToken
   }
